@@ -92,6 +92,7 @@ class DataService {
     workspaceData: WorkspaceData,
     uris: vscode.Uri[]
   ): Promise<void> {
+    const promises = [];
     for (let i = 0; i < uris.length; i++) {
       if (this.isCancelled) {
         this.utils.clearWorkspaceData(workspaceData);
@@ -99,13 +100,19 @@ class DataService {
       }
 
       const uri = uris[i];
-      let symbolsForUri = await this.tryToGetSymbolsForUri(uri);
-      this.addSymbolsForUriToWorkspaceData(workspaceData, uri, symbolsForUri);
+      promises.push((async () => {
+        let symbolsForUri = await this.tryToGetSymbolsForUri(uri);
+        this.addSymbolsForUriToWorkspaceData(
+          workspaceData,
+          uri,
+          symbolsForUri
+        );
 
-      this.onDidItemIndexedEventEmitter.fire(uris.length);
+        this.onDidItemIndexedEventEmitter.fire(uris.length);
+      })());
     }
-  }
-
+    await Promise.all(promises);
+  };
   private async tryToGetSymbolsForUri(
     uri: vscode.Uri
   ): Promise<vscode.DocumentSymbol[] | undefined> {

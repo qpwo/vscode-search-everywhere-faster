@@ -1,3 +1,5 @@
+**Forked from [https://github.com/kbysiec/vscode-search-everywhere]**
+
 # Search everywhere
 
 The extension is inspired by JetBrains IDEs feature "Search Everywhere".

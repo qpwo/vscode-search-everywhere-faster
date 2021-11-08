@@ -65,6 +65,7 @@ class ActionProcessor {
       this.reduce();
       const action = this.getNextActionFromQueue();
       this.setPreviousAction(action);
+      // @ts-expect-error
       this.onWillExecuteActionEventEmitter.fire(action);
       action && (await action.fn());
     }

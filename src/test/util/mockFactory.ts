@@ -7,6 +7,7 @@ import Item from "../../interface/item";
 import WorkspaceData from "../../interface/workspaceData";
 
 export const getExtensionContext = (): vscode.ExtensionContext => {
+  // @ts-expect-error
   return {
     subscriptions: [],
     workspaceState: {

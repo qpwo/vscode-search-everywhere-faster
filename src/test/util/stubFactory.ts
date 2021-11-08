@@ -95,6 +95,7 @@ export function getPatternProviderStub(): PatternProvider {
 export function getTextEditorStub(
   isUntitled: boolean = true
 ): vscode.TextEditor {
+  // @ts-expect-error
   return {
     document: {
       uri: createStubInstance(vscode.Uri),

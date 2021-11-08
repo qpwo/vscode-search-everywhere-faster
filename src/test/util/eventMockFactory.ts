@@ -57,6 +57,7 @@ export const getTextDocumentChangeEvent = (
   shouldContentBeChanged &&
     (textDocumentChangeEvent as any).contentChanges.push("test change");
 
+  // @ts-expect-error
   return textDocumentChangeEvent;
 };
 
